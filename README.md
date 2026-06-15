@@ -25,8 +25,8 @@
 
 [![🚀 DEPLOY NOW](https://img.shields.io/badge/🚀_DEPLOY_ON_KATABUMP-FF69B4?style=for-the-badge&logo=rocket&logoColor=white&labelColor=000000)](https://katabump.com)
 [![💻 LIVE DEMO](https://img.shields.io/badge/💻_LIVE_DEMO-00FF00?style=for-the-badge&logo=globe&logoColor=white&labelColor=000000)](https://four04-the-goat.onrender.com)
-[![📱 WHATSAPP](https://img.shields.io/badge/📱_WHATSAPP_SUPPORT-25D366?style=for-the-badge&logo=whatsapp&logoColor=white&labelColor=000000)](https://wa.me/+255788072576)
-[![🌐 WEBSITE](https://img.shields.io/badge/🌐_OFFICIAL_WEBSITE-00D4FF?style=for-the-badge&logo=vercel&logoColor=white&labelColor=000000)](https://malengoall Blogspot)
+[![📱 WHATSAPP](https://img.shields.io/badge/📱_WHATSAPP_SUPPORT-25D366?style=for-the-badge&logo=whatsapp&logoColor=white&labelColor=000000)](https://wa.me/+255625816690)
+[![🌐 WEBSITE](https://img.shields.io/badge/🌐_OFFICIAL_WEBSITE-00D4FF?style=for-the-badge&logo=vercel&logoColor=white&labelColor=000000)](https://muuhacker Blogspot)
 
 </div>
 
