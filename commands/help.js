@@ -283,7 +283,7 @@ async function helpCommand(sock, chatId, message) {
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
                         newsletterJid: '120363420118357923@newsletter',
-                        newsletterName: 'CYBERMUU Ethicalmuuunkown',
+                        newsletterName: 'CYBERMUU by Ethicalmuuunkown',
                         serverMessageId: -1
                     } 
                 }
