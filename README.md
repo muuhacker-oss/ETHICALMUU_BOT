@@ -88,7 +88,7 @@
 
 ```bash
 # 🎯 Clone the repository
-git clone https://github.com/Muuhacker/CYBERMUU/tree/main
+git clone https://github.com/muuhacker-oss/ETHICALMUU_BOT.git/tree/main
 
 # 📁 Navigate to directory
 cd CYBERMUU 
