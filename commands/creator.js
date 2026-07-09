@@ -84,7 +84,7 @@ ${creator.message}
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                     newsletterJid: '120363420118357923@newsletter',
-                    newsletterName:`CREATOR,
+                    newsletterName:`CREATOR',
                     serverMessageId: -1
                 }
             }
