@@ -9,7 +9,7 @@ const channelInfo = {
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
             newsletterJid: '120363401269012709@newsletter',
-            newsletterName: 'CYBERMUU,
+            newsletterName: 'CYBERMUU',
             serverMessageId: -1
         }
     }
