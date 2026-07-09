@@ -1,8 +1,8 @@
 const settings = {
-  packname: 'CYBERMUU,
-  author: 'ETHICALMUU,
+  packname: 'CYBERMUU',
+  author: 'ETHICALMUU',
   botName: "CYBERMUU",
-  botOwner: 'ETHICALMUU, // Your name
+  botOwner: 'ETHICALMUU', // Your name
   ownerNumber: '255625816690', //Set your number here without + symbol, just add country code & number without any space
   giphyApiKey: 'qnl7ssQChTdPjsKta2Ax2LMaGXz303tq',
   commandMode: "public",
