@@ -11,7 +11,7 @@ async function helpCommand(sock, chatId, message) {
 ╭───────────────────────────────╮
 │        🤖 *BOT INFO*          │
 ├───────────────────────────────┤
-│ • Name: ${settings.botName || 'CYBERMUU} 
+│ • Name: ${settings.botName || 'CYBERMUU'} 
 │ • Version: ${settings.version || '3.0.0'}
 │ • Owner: ${settings.botOwner || 'ETHICALMUU TECH'}
 │ • YouTube: ${global.ytch}
@@ -269,7 +269,7 @@ async function helpCommand(sock, chatId, message) {
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
                         newsletterJid: '120363420118357923@newsletter',
-                        newsletterName: 'CYBERMUU,
+                        newsletterName: 'CYBERMUU',
                         serverMessageId: -1
                     }
                 }
