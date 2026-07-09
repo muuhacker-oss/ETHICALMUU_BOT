@@ -47,7 +47,7 @@ async function autoreplyCommand(sock, chatId, message) {
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
                         newsletterJid: '120363401269012709@newsletter',
-                        newsletterName: 'CYBERMUU,
+                        newsletterName: 'CYBERMUU',
                         serverMessageId: -1
                     }
                 }
@@ -73,7 +73,7 @@ async function autoreplyCommand(sock, chatId, message) {
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
                         newsletterJid: '120363401269012709@newsletter',
-                        newsletterName: 'CYBERMUU,
+                        newsletterName: 'CYBERMUU',
                         serverMessageId: -1
                     }
                 }
@@ -102,7 +102,7 @@ async function autoreplyCommand(sock, chatId, message) {
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
                         newsletterJid: '120363401269012709@newsletter',
-                        newsletterName: 'CYBERMUU,
+                        newsletterName: 'CYBERMUU',
                         serverMessageId: -1
                     }
                 }
@@ -120,7 +120,7 @@ async function autoreplyCommand(sock, chatId, message) {
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
                         newsletterJid: '120363401269012709@newsletter',
-                        newsletterName: 'CYBERMUU,
+                        newsletterName: 'CYBERMUU',
                         serverMessageId: -1
                     }
                 }
@@ -134,7 +134,7 @@ async function autoreplyCommand(sock, chatId, message) {
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
                         newsletterJid: '120363401269012709@newsletter',
-                        newsletterName: 'CYBERMUU,
+                        newsletterName: 'CYBERMUU',
                         serverMessageId: -1
                     }
                 }
@@ -150,7 +150,7 @@ async function autoreplyCommand(sock, chatId, message) {
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                     newsletterJid: '120363401269012709@newsletter',
-                    newsletterName: 'CYBERMUU,
+                    newsletterName: 'CYBERMUU',
                     serverMessageId: -1
                 }
             }
@@ -219,7 +219,7 @@ async function handleAutoreply(sock, chatId, senderId, userMessage, message) {
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                     newsletterJid: '120363401269012709@newsletter',
-                    newsletterName: 'CYBERMUU,
+                    newsletterName: 'CYBERMUU',
                     serverMessageId: -1
                 },
                 mentionedJid: [senderId]
