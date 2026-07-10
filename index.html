@@ -6,119 +6,253 @@
     <title>CYBERMUU SYSTEM // PAIRING PANEL</title>
     <style>
         :root {
-            --neon-green: #00ff66;
-            --dark-bg: #0a0a0a;
-            --terminal-bg: #111111;
+            --neon-blue: #00f0ff;
+            --neon-purple: #bd00ff;
+            --dark-bg: #060713;
+            --card-bg: #0d0e25;
+            --input-bg: #131535;
         }
+
         body {
-            background-color: var(--dark-bg);
+            background: radial-gradient(circle at center, #14113c 0%, var(--dark-bg) 100%);
             color: #ffffff;
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
-            overflow: hidden;
+            padding: 20px;
+            box-sizing: border-box;
         }
-        .container {
-            background-color: var(--terminal-bg);
-            border: 2px solid var(--neon-green);
-            box-shadow: 0 0 20px rgba(0, 255, 102, 0.2);
-            padding: 30px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 450px;
+
+        .panel-card {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(189, 0, 255, 0.2);
+            border-radius: 24px;
+            box-shadow: 0 0 40px rgba(189, 0, 255, 0.15), inset 0 0 20px rgba(0, 240, 255, 0.05);
+            padding: 35px 25px;
+            width: 100%;
+            max-width: 420px;
             text-align: center;
+            backdrop-filter: blur(10px);
         }
+
+        .profile-container {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 15px auto;
+        }
+
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        .badge {
+            background: linear-gradient(135deg, #ffcc00, #ff9900);
+            color: #000;
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 10px;
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.4);
+        }
+
         h1 {
-            color: var(--neon-green);
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin: 5px 0;
+            letter-spacing: 1px;
+            background: linear-gradient(to right, #ffffff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 0.85rem;
+            color: #6366f1;
+            text-transform: uppercase;
             letter-spacing: 2px;
-        }
-        p {
-            font-size: 0.9rem;
-            color: #888;
             margin-bottom: 25px;
+            font-weight: 600;
         }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: #10b981;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #10b981;
+            animation: pulse 1.5s infinite;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
         input[type="text"] {
             width: 100%;
-            padding: 12px;
-            background: #000;
-            border: 1px solid #333;
-            border-radius: 5px;
-            color: var(--neon-green);
-            font-size: 1.1rem;
+            padding: 16px;
+            background-color: var(--input-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            color: #ffffff;
+            font-size: 1.05rem;
             box-sizing: border-box;
             text-align: center;
-            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
         }
+
         input[type="text"]:focus {
-            border-color: var(--neon-green);
+            border-color: var(--neon-blue);
             outline: none;
-            box-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+            background-color: #161942;
         }
-        button {
+
+        .pair-btn {
             width: 100%;
-            padding: 12px;
-            background-color: transparent;
-            border: 2px solid var(--neon-green);
-            color: var(--neon-green);
+            padding: 16px;
+            background: linear-gradient(90deg, var(--neon-blue) 0%, #00a8ff 100%);
+            border: none;
+            color: #000000;
             font-size: 1rem;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 14px;
             transition: all 0.3s ease;
             text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 20px rgba(0, 240, 255, 0.3);
         }
-        button:hover {
-            background-color: var(--neon-green);
-            color: #000;
-            box-shadow: 0 0 15px var(--neon-green);
+
+        .pair-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px var(--neon-blue);
         }
-        .output-box {
+
+        .output-panel {
             margin-top: 25px;
-            background: #000;
-            border: 1px dashed var(--neon-green);
-            padding: 15px;
-            border-radius: 5px;
-            min-height: 50px;
+            background-color: rgba(0, 0, 0, 0.4);
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 14px;
+            min-height: 60px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        .code-display {
-            font-size: 1.8rem;
-            font-weight: bold;
+
+        .code-text {
+            font-size: 2rem;
+            font-weight: 800;
             color: #ffffff;
-            letter-spacing: 4px;
-            text-shadow: 0 0 8px #fff;
+            letter-spacing: 5px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
         }
-        .loading {
-            color: #ffcc00;
-            animation: blink 1s infinite;
+
+        .loading-text {
+            color: #ffaa00;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            animation: blink 1.2s infinite;
         }
+
+        .footer-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 10px;
+        }
+
+        .footer-btn {
+            flex: 1;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: #94a3b8;
+            font-size: 0.75rem;
+            border-radius: 10px;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .footer-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
         @keyframes blink {
-            0% { opacity: 0.3; }
+            0% { opacity: 0.4; }
             50% { opacity: 1; }
-            100% { opacity: 0.3; }
+            100% { opacity: 0.4; }
         }
     </style>
     <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
 
-<div class="container">
-    <h1>ROOT_ACCESS // CYBERMUU</h1>
-    <p>Ingiza namba yako ya WhatsApp kuanza kuunganisha bot (Weka namba kuanzia na code ya nchi, mfano: 25577.......)</p>
+<div class="panel-card">
+    <div class="profile-container">
+        <img src="https://raw.githubusercontent.com/muuhacker-oss/ETHICALMUU_BOT/main/src/media/cybermuu.jpg" class="profile-pic" alt="CYBERMUU" onerror="this.src='https://i.imgur.com/A28MhD2.jpeg'">
+    </div>
     
-    <input type="text" id="phoneNumber" placeholder="255771234567">
-    <button onclick="requestPairCode()">Get Pairing Code</button>
+    <div class="badge">CYBERMUU V1</div>
+    <h1>CYBERMUU MINI</h1>
+    <div class="subtitle">WhatsApp Bot Pairing System</div>
 
-    <div class="output-box">
-        <div id="result" class="code-display">KODI ITAONEKANA HAPA</div>
+    <div class="status-indicator">
+        <div class="status-dot"></div>
+        SYSTEM ONLINE
+    </div>
+    
+    <div class="input-group">
+        <input type="text" id="phoneNumber" placeholder="255771234567">
+    </div>
+    
+    <button class="pair-btn" onclick="requestPairCode()">✦ Pair Bot ✦</button>
+
+    <div class="output-panel">
+        <div id="result" class="code-text">---</div>
+    </div>
+
+    <div class="footer-links">
+        <a href="#" class="footer-btn">♫ Music</a>
+        <a href="#" class="footer-btn">☾ Overlay</a>
+        <a href="#" class="footer-btn">🏠 Home</a>
     </div>
 </div>
 
@@ -128,19 +262,22 @@
     function requestPairCode() {
         const num = document.getElementById('phoneNumber').value.trim();
         if(!num) {
-            alert('Tafadhali weka namba halali!');
+            alert('Please enter a valid phone number!');
             return;
         }
-        document.getElementById('result').innerHTML = '<span class="loading">Inatafuta kodi...</span>';
+        document.getElementById('result').className = "loading-text";
+        document.getElementById('result').innerHTML = 'REQUESTING CODE...';
         socket.emit('get_code', num);
     }
 
     socket.on('pair_code', (code) => {
+        document.getElementById('result').className = "code-text";
         document.getElementById('result').innerText = code;
     });
 
     socket.on('error_msg', (msg) => {
-        document.getElementById('result').innerHTML = `<span style="color: #ff3333">${msg}</span>`;
+        document.getElementById('result').className = "loading-text";
+        document.getElementById('result').innerHTML = `<span style="color: #ef4444">${msg}</span>`;
     });
 </script>
 
