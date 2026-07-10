@@ -10,6 +10,9 @@ const http = require('http')
 const { Server } = require('socket.io')
 const path = require('path')
 
+// Ruhusu Express isome picha na mafile ya folda zako (kama assets, media nk)
+app.use(express.static(path.join(__dirname)));
+
 const app = express()
 const server = http.createServer(app)
 const io = new Server(server, {
