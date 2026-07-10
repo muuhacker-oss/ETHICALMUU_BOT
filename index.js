@@ -16,15 +16,21 @@ const path = require('path')
 
 const app = express()
 const server = http.createServer(app)
-const io = new Server(server)
+const io = new Server(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+    }
+})
+
+// Render huwa inapitisha port yenyewe, tunahakikisha inasoma 0.0.0.0
 const PORT = process.env.PORT || 3000
 
-// Inasoma index.html uliyoiweka kwenye folda kuu (root directory)
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'))
 })
 
-server.listen(PORT,'0.0.0.0'() => {
+server.listen(PORT, '0.0.0.0', () => {
     console.log(`📡 Web Server active on port: ${PORT}`)
 })
 // ======================================================================
