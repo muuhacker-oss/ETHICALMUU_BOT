@@ -9,9 +9,9 @@ const express = require('express')
 const http = require('http')
 const { Server } = require('socket.io')
 const path = require('path')
+const chalk = require('chalk')
 
 const app = express()
-// Ruhusu Express isome picha na mafile ya folda zako (kama assets, media nk)
 app.use(express.static(path.join(__dirname)));
 
 const server = http.createServer(app)
@@ -22,19 +22,49 @@ const io = new Server(server, {
     }
 })
 
-// Render inahitaji port 3000 na ip 0.0.0.0 ipatikane haraka sana!
 const PORT = process.env.PORT || 3000
+let XeonBotIncInstance = null; // Inashika instance ya bot kimataifa
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'))
 })
 
-// WASHA SEVA KWANZA PAPO HAPO ILI RENDER IPATE PORT TIMEOUT YA HARAKA
+// Web Panel Connection Handler - IPO NJE SASA ILI ENEO LIWE ACTIVE KILA WAKATI
+io.on('connection', (socket) => {
+    console.log(chalk.cyan('[SOCKET] New client web connection established.'))
+
+    socket.on('get_code', async (num) => {
+        try {
+            let formattedNum = num.replace(/[^0-9]/g, '')
+            
+            if (!formattedNum) {
+                socket.emit('error_msg', 'Namba haijakamilika!')
+                return
+            }
+
+            // Angalia kama engine imeshamaliza ku-load
+            if (!XeonBotIncInstance) {
+                socket.emit('error_msg', 'Bot Engine inawaka, subiri sekunde 5 kisha bonyeza tena!')
+                return
+            }
+
+            console.log(chalk.yellow(`[SOCKET] Requesting code for: ${formattedNum}`))
+            let code = await XeonBotIncInstance.requestPairingCode(formattedNum)
+            code = code?.match(/.{1,4}/g)?.join("-") || code
+
+            socket.emit('pair_code', code)
+            console.log(chalk.black(chalk.bgGreen(`[DASHBOARD] Code Generated: ${code}`)))
+        } catch (err) {
+            console.error(err)
+            socket.emit('error_msg', 'WhatsApp Timeout au Session Iko Busy. Jaribu Tena!')
+        }
+    })
+})
+
 server.listen(PORT, '0.0.0.0', () => {
     console.log(`📡 WEB SERVER ACTIVE ON PORT: ${PORT} - READY FOR PORT SCAN!`)
 })
 
-// NESTED BOT LOGIC - INASUBIRI SEKUNDE 3 ILI SEVA ITHIBITIKE KWANZA KULE RENDER
 setTimeout(() => {
     console.log(`🤖 Starting CYBERMUU Bot Engine core triggers...`)
     startBotEngine()
@@ -46,7 +76,6 @@ function startBotEngine() {
     require('./settings')
     const { Boom } = require('@hapi/boom')
     const fs = require('fs')
-    const chalk = require('chalk')
     const FileType = require('file-type')
     const axios = require('axios')
     const { handleMessages, handleGroupParticipantUpdate, handleStatus } = require('./main');
@@ -82,7 +111,6 @@ function startBotEngine() {
     const settings = require('./settings')
     setInterval(() => store.writeToFile(), settings.storeWriteInterval || 10000)
 
-    // Memory monitoring
     setInterval(() => {
         const used = process.memoryUsage().rss / 1024 / 1024
         if (used > 400) {
@@ -90,9 +118,6 @@ function startBotEngine() {
             process.exit(1)
         }
     }, 30_000)
-
-    let phoneNumber = "" 
-    let owner = JSON.parse(fs.readFileSync('./data/owner.json'))
 
     global.botname = "CYBERMUU"
     global.themeemoji = "•"
@@ -107,7 +132,7 @@ function startBotEngine() {
                 version,
                 logger: pino({ level: 'silent' }),
                 printQRInTerminal: false, 
-                browser: ["Ubuntu", "Chrome", "20.0.04"],
+                browser: ["CYBERMUU", "Chrome", "1.0.0"],
                 auth: {
                     creds: state.creds,
                     keys: makeCacheableSignalKeyStore(state.keys, pino({ level: "fatal" }).child({ level: "fatal" })),
@@ -126,31 +151,10 @@ function startBotEngine() {
                 keepAliveIntervalMs: 10000,
             })
 
-            // Web Panel Live Request Event
-            io.on('connection', (socket) => {
-                socket.on('get_code', async (num) => {
-                    try {
-                        let formattedNum = num.replace(/[^0-9]/g, '')
-                        const pn = require('awesome-phonenumber')
-                        if (!pn('+' + formattedNum).isValid()) {
-                            socket.emit('error_msg', 'Invalid Number! Use format: 255771234567')
-                            return
-                        }
-                        
-                        let code = await XeonBotInc.requestPairingCode(formattedNum)
-                        code = code?.match(/.{1,4}/g)?.join("-") || code
-                        
-                        socket.emit('pair_code', code)
-                        console.log(chalk.black(chalk.bgGreen(`[DASHBOARD] Code Generated for ${formattedNum}: ${code}`)))
-                    } catch (err) {
-                        console.error(err)
-                        socket.emit('error_msg', 'Server Connection Error. Try Again!')
-                    }
-                })
-            })
+            // Hapa tunaihifadhi bot instance kwenye global variable yetu ya juu ili socket iione
+            XeonBotIncInstance = XeonBotInc;
 
             XeonBotInc.get_io = () => io;
-
             XeonBotInc.ev.on('creds.update', saveCreds)
             store.bind(XeonBotInc.ev)
 
@@ -189,7 +193,7 @@ function startBotEngine() {
                     let decode = jidDecode(jid) || {}
                     return decode.user && decode.server && decode.user + '@' + decode.server || jid
                 } else return jid
-                }
+            }
 
             XeonBotInc.ev.on('contacts.update', update => {
                 for (let contact of update) {
