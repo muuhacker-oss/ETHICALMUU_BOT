@@ -22,19 +22,20 @@
         button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 242, 254, 0.6); }
         .response-box { width: 100%; min-height: 80px; background: rgba(255, 165, 0, 0.05); border: 1px dashed #ffa500; border-radius: 14px; padding: 15px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #ffa500; font-size: 14px; margin-bottom: 25px; word-break: break-all; }
         .nav-buttons { display: flex; gap: 10px; justify-content: center; }
-        .nav-btn { background: rgba(22, 27, 34, 0.8); border: 1px solid #30363d; padding: 12px 18px; border-radius: 12px; font-size: 11px; color: #8b949e; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
+        .nav-btn { background: rgba(22, 27, 34, 0.8); border: 1px solid #30363d; padding: 12px 18px; border-radius: 12px; font-size: 11px; color: #8b949e; cursor: pointer; text-transform: uppercase; transition: 0.3s; text-decoration: none; display: inline-block; }
         .nav-btn:hover { border-color: #00f2fe; color: #fff; }
         .nav-btn.active { border-color: #00f2fe; color: #fff; background: rgba(0, 242, 254, 0.05); box-shadow: inset 0 0 5px rgba(0, 242, 254, 0.2); }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="avatar-box">
-        <!-- Nembo yako ya hacker itaji-load hapa, kama hamna picha itaweka text -->
-        <span style="color: #00f2fe; font-size: 12px; padding: 5px;">CYBERMUU</span>
+        <img src="/assets/logo.jpg" alt="CYBERMUU" onerror="this.style.display='none';">
+        <span id="alt-avatar" style="color: #00f2fe; font-size: 12px; padding: 5px;">CYBERMUU</span>
     </div>
-    
+
     <div class="badge">CYBERMUU V1</div>
     <h1>CYBERMUU</h1>
     <p>WHATSAPP BOT PAIRING SYSTEM</p>
@@ -44,8 +45,9 @@
         <span id="status-text">SYSTEM ONLINE</span>
     </div>
 
-    <input type="number" id="phone-input" placeholder="255625816690">
-    
+    <!-- Imetoka kuwa number na kwenda kuwa text kuzuia browser kufuta namba au kuweka alama za ajabu -->
+    <input type="text" id="phone-input" placeholder="255625816690">
+
     <button id="pair-btn" onclick="requestPairCode()">✨ PAIR BOT ✨</button>
 
     <div class="response-box" id="code-display">
@@ -53,15 +55,20 @@
     </div>
 
     <div class="nav-buttons">
-        <button class="nav-btn" onclick="alert('Music feature coming soon!')">🎵 MUSIC</button>
-        <button class="nav-btn" onclick="alert('Overlay toggled!')">🌙 OVERLAY</button>
-        <button class="nav-btn active">🏠 HOME</button>
+        <a href="https://chat.whatsapp.com/HRo7GsirzbpKfRY5nHRc43?s=cl&p=a&ilr=1" target="_blank" class="nav-btn">💬 GROUP</a>
+        <a href="https://whatsapp.com/channel/0029Vb87xXC7z4knimhaAE3f" target="_blank" class="nav-btn">📢 CHANNEL</a>
+        <button class="nav-btn active" onclick="location.reload()">🏠 REFRESH</button>
     </div>
 </div>
 
 <script>
-    // IO inatafuta seva yenyewe otomatiki bila kuandika localhost au ip ngumu
     const socket = io();
+
+    // Kama picha ipo itaficha maandishi mbadala
+    const img = document.querySelector('.avatar-box img');
+    if (img) {
+        img.onload = function() { document.getElementById('alt-avatar').style.display = 'none'; }
+    }
 
     socket.on('connect', () => {
         document.getElementById('status-text').innerText = "SYSTEM ONLINE";
@@ -74,22 +81,23 @@
     });
 
     function requestPairCode() {
-        const num = document.getElementById('phone-input').value;
+        let num = document.getElementById('phone-input').value;
         if(!num) {
             alert("Tafadhali weka namba ya simu!");
             return;
         }
         
+        // Safisha nafasi (spaces) zozote mteja alizoweka kwa makosa
+        num = num.replace(/\s+/g, '');
+
         document.getElementById('code-display').innerHTML = '<span style="color: #ffa500; animation: blink 1s infinite;">GENERATING PAIRING CODE...</span>';
-        
-        // Tuma namba kwenda kwenye backend (index.js)
+
         socket.emit('get_code', num);
     }
 
-    // Pokea code kutoka kwa backend
     socket.on('pair_code', (code) => {
         document.getElementById('code-display').innerHTML = `
-            <div style="font-size: 24px; color: #00ff7f; letter-spacing: 4px; text-shadow: 0 0 10px #00ff7f;">
+            <div style="font-size: 24px; color: #00ff7f; letter-spacing: 4px; text-shadow: 0 0 10px #00ff7f; font-weight: bold;">
                 ${code}
             </div>
             <div style="font-size: 10px; color: #8b949e; margin-top: 5px; font-weight: normal;">
@@ -98,7 +106,6 @@
         `;
     });
 
-    // Pokea error kama namba sio sahihi au iko busy
     socket.on('error_msg', (msg) => {
         document.getElementById('code-display').innerHTML = `<span style="color: #ff4a4a;">${msg}</span>`;
     });
