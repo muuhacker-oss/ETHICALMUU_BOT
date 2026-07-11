@@ -42,7 +42,8 @@ const {
 require('./settings');
 const { handleMessages, handleGroupParticipantUpdate, handleStatus } = require('./main');
 const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./lib/exif');
-const { smsg, isUrl, generateMessageTag, getBuffer, getSizeMedia, fetch, await, sleep, reSize } = require('./lib/myfunc');
+// REMOVED 'await' FROM DESTRUCTURING TO FIX RUNTIME SYNTAX ERROR
+const { smsg, isUrl, generateMessageTag, getBuffer, getSizeMedia, fetch, sleep, reSize } = require('./lib/myfunc');
 const store = require('./lib/lightweight_store');
 
 // Express & Socket Server Initialization
