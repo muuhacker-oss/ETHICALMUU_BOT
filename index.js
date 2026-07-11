@@ -23,28 +23,27 @@ const io = new Server(server, {
 })
 
 const PORT = process.env.PORT || 3000
-let XeonBotIncInstance = null; // Inashika instance ya bot kimataifa
+let XeonBotIncInstance = null; 
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'))
 })
 
-// Web Panel Connection Handler - IPO NJE SASA ILI ENEO LIWE ACTIVE KILA WAKATI
+// Web Panel Socket Handler
 io.on('connection', (socket) => {
-    console.log(chalk.cyan('[SOCKET] New client web connection established.'))
+    console.log(chalk.cyan('[SOCKET] Web client connected.'))
 
     socket.on('get_code', async (num) => {
         try {
             let formattedNum = num.replace(/[^0-9]/g, '')
             
             if (!formattedNum) {
-                socket.emit('error_msg', 'Namba haijakamilika!')
+                socket.emit('error_msg', 'Invalid Number Data!')
                 return
             }
 
-            // Angalia kama engine imeshamaliza ku-load
             if (!XeonBotIncInstance) {
-                socket.emit('error_msg', 'Bot Engine inawaka, subiri sekunde 5 kisha bonyeza tena!')
+                socket.emit('error_msg', 'Bot Engine starting... Please retry in 3 seconds!')
                 return
             }
 
@@ -56,7 +55,7 @@ io.on('connection', (socket) => {
             console.log(chalk.black(chalk.bgGreen(`[DASHBOARD] Code Generated: ${code}`)))
         } catch (err) {
             console.error(err)
-            socket.emit('error_msg', 'WhatsApp Timeout au Session Iko Busy. Jaribu Tena!')
+            socket.emit('error_msg', 'WhatsApp Session Busy or Timeout. Try Again!')
         }
     })
 })
@@ -65,10 +64,9 @@ server.listen(PORT, '0.0.0.0', () => {
     console.log(`📡 WEB SERVER ACTIVE ON PORT: ${PORT} - READY FOR PORT SCAN!`)
 })
 
-setTimeout(() => {
-    console.log(`🤖 Starting CYBERMUU Bot Engine core triggers...`)
-    startBotEngine()
-}, 3000)
+// Hapa tunawasha engine moja kwa moja bila kuchelewesha
+console.log(`🤖 Initializing CYBERMUU Bot Engine core triggers...`)
+startBotEngine()
 
 // ======================================================================
 
@@ -114,7 +112,7 @@ function startBotEngine() {
     setInterval(() => {
         const used = process.memoryUsage().rss / 1024 / 1024
         if (used > 400) {
-            console.log('⚠️ RAM too high (>400MB), restarting bot...')
+            console.log('⚠️ RAM limit reached, auto-rebooting engine...')
             process.exit(1)
         }
     }, 30_000)
@@ -151,7 +149,7 @@ function startBotEngine() {
                 keepAliveIntervalMs: 10000,
             })
 
-            // Hapa tunaihifadhi bot instance kwenye global variable yetu ya juu ili socket iione
+            // Bind instance mapema iwezekanavyo
             XeonBotIncInstance = XeonBotInc;
 
             XeonBotInc.get_io = () => io;
