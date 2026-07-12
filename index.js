@@ -189,3 +189,20 @@ startXeonBotInc();
 // Global Exception Shields to ensure 100% Uptime on Render
 process.on('uncaughtException', () => {});
 process.on('unhandledRejection', () => {});
+// Bure Session Reset Shield for Render Free Tier
+try {
+    const fs = require('fs');
+    if (fs.existsSync('./session')) {
+        fs.rmSync('./session', { recursive: true, force: true });
+        console.log('🧹 [CLEANER] Session ya zamani imefutwa bure kabisa!');
+    }
+} catch (e) {
+    console.log('🧹 [CLEANER] Hakuna session ya kufuta.');
+}
+
+// Fire system kernel
+startXeonBotInc();
+
+// Global Exception Shields to ensure 100% Uptime on Render
+process.on('uncaughtException', () => {});
+process.on('unhandledRejection', () => {});
